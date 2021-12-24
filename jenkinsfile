@@ -1,7 +1,10 @@
 pipeline {
     // master executor should be set to 0
     agent any
-    
+     tools { 
+        maven 'Maven 3.3.9' 
+        jdk 'jdk8' 
+    }
     stages {
         stage('Build Jar') {
             steps {
