@@ -1,12 +1,13 @@
 pipeline {
     // master executor should be set to 0
     agent any
-     tools {
-        maven 'Maven 3.2.5'
-    }
+    
     stages {
         stage('Build Jar') {
             steps {
+	     tools {
+        maven 'Maven 3.2.5'
+                  }
                 sh "mvn clean package -DskipTests"
             }
         }
