@@ -4,6 +4,11 @@ pipeline {
      tools {
     maven 'MavenTest'
   }
+  
+   stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
     stages {
         stage('Build Jar') {
             steps {
