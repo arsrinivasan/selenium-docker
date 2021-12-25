@@ -4,23 +4,23 @@ pipeline {
      tools {
     maven 'MavenTest'
   }
-  
-  
+
+
     stages {
-     
+
         stage('Build Jar') {
             steps {
                 sh "mvn clean package -DskipTests"
             }
         }
-	
-	stage('Initialize'){
-           steps {
-                def dockerHome = tool 'myDocker'
-                env.PATH = "${dockerHome}/bin:${env.PATH}"                }
-          }
+
+	    stage('Initialize'){
+	         steps {
+                  def dockerHome = tool 'myDocker'
+                  env.PATH = "${dockerHome}/bin:${env.PATH}"
+             }
        }
-    
+
         stage('Build Image') {
             steps {
                 sh "docker build -t='sriar/selenium-docker' ."
