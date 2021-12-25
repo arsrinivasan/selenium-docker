@@ -5,11 +5,12 @@ pipeline {
     maven 'MavenTest'
   }
   
-   stage('Initialize'){
+  
+    stages {
+     stage('Initialize'){
         def dockerHome = tool 'myDocker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
-    stages {
         stage('Build Jar') {
             steps {
                 sh "mvn clean package -DskipTests"
