@@ -14,16 +14,11 @@ pipeline {
             }
         }
 
-	    stage('Initialize'){
-	         steps {
-                  def dockerHome = tool 'myDocker'
-                  env.PATH = "${dockerHome}/bin:${env.PATH}"
-             }
-       }
-
         stage('Build Image') {
             steps {
-                sh "docker build -t='sriar/selenium-docker' ."
+	          def dockerHome = tool 'myDocker'
+                  env.PATH = "${dockerHome}/bin:${env.PATH}"
+                  sh "docker build -t='sriar/selenium-docker' ."
             }
         }
         stage('Push Image') {
