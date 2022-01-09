@@ -1,28 +1,25 @@
 pipeline {
     // master executor should be set to 0
     agent any
-     tools {
-    maven 'MavenTest'
-  }
     stages {
         stage('Build Jar') {
-	
             steps {
                 //sh
-                sh "mvn clean package -DskipTests"
+                bat "mvn clean package -DskipTests"
             }
         }
         stage('Build Image') {
             steps {
                 //sh
-                sh "docker build -t='sriar/selenium-docker' ."
+                bat "docker build -t='sriar/selenium-docker' ."
             }
         }
         stage('Push Image') {
             steps {
 			    withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-			        sh "docker login --username=${user} --password=${pass}"
-			        sh "docker push sriar/selenium-docker:latest"
+                    //sh
+			        bat "docker login --username=${user} --password=${pass}"
+			        bat "docker push sriar/selenium-docker:latest"
 			    }                           
             }
         }
